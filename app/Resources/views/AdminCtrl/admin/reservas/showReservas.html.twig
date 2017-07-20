@@ -1,0 +1,51 @@
+{% set bodyclass = 'admin' %}
+
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+{% block scriptshead %}
+
+{% endblock %}
+
+{% block body %}
+   {% include ':AdminCtrl/admin:navbar.html.twig' %}
+<section class="section">
+   <div class="container">
+      <h1 class="title is-1 is-marker">Reservas hechas</h1>
+      <a href="{{path('printReservas')}}" class="button is-primary"><span class="icon"><i class="fa fa-print"></i></span>&nbsp;&nbsp;&nbsp;Imprimir listado</a>
+       <hr>
+       {% for dia in dias %}
+        <h1 class="title is-2 is-oswald is-600"><span class="icon is-large"><i class="fa fa-calendar"></i></span> {{dia.fecha|date('l, d \\d\\e F Y')|toEs}}</h1>
+        {% for horario in fechas[dia.fecha|date('Y-m-d')] %}
+        <h1 class="subtitle is-4 is-oswald is-marginless"><span class="icon is-medium"><i class="fa fa-clock-o"></i></span>&nbsp;<b class="is-500">A las {{horario.hora|date('H:i')}}</b> - {{horario.cupos - horario.cuposRestantes}} alumnos / {{horario.reservas|length}} Instituciones</h1>
+        <table class="table is-hover">
+            <thead>
+                <tr>
+                    <th>Institucion</th>
+                    <th style="text-align: center;" width="120">Alumnos</th>
+                    <th style="text-align: right;" width="120">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for reserva in horario.reservas %}
+         <tr>
+             <td><a href="{{path('showInstitucion',{'institucionID' : reserva.institucion.id})}}">{{reserva.institucion.nombre}}</a></td>
+             <td class="has-text-centered">{{reserva.cupo}}</td>
+             <td class="has-text-right"><a href="{{path('showReservaInstitucion',{'reservaID' : reserva.id})}}" class="button is-small is-primary"><span class="icon is-small"><i class="fa fa-eye"></i></span></a></td>
+         </tr>
+          {% endfor %}
+            </tbody>
+        </table>
+
+        {% endfor %}
+
+       {% endfor %}
+   </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

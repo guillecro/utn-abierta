@@ -1,0 +1,64 @@
+{% set bodyclass = 'admin' %}
+
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+{% block scriptshead %}
+{% endblock %}
+
+{% block body %}
+   {% include ':AdminCtrl/admin:navbar.html.twig' %}
+   <section class="section">
+      <div class="container">
+         <h1 class="title is-1 is-marker">Administradores</h1>
+         <p class="disclaimer">No puede eliminar administradores. En caso de tener que hacerlo, hable con el ingeniero Croppí
+         </p>
+         <br>
+         <a href="{{path('showCrearAdmin')}}" class="button is-primary">
+            <span class="icon">
+               <i class="fa fa-star-o"></i>
+            </span>&nbsp;&nbsp;&nbsp;Nuevo administrador</a>
+         <hr>
+         <table class="table is-striped is-narrow">
+            <thead>
+               <tr>
+                  <th>Nombre y Apellido</th>
+                  <th>Email</th>
+                  <th>Fecha creado</th>
+                  <th>¿Habilitado?</th>
+                  <th>¿Token activo?
+                     <span class="icon" title="Un token se encuentra activo cuando el usuario debe establecer su contraseña por primera vez, o recuperarla porque solicito un re-establecimiento de la contraseña">
+                        <i class="fa fa-question-circle"></i>
+                     </span>
+                  </th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for admin in administradores %}
+                  <tr>
+                     <th>{{admin.nombre}}
+                        {{admin.apellido}}</th>
+                     <td>
+                        <a href="mailto:{{admin.email}}">{{admin.email}}</a>
+                     </td>
+                     <td>{{admin.createdAt|date('d/m/Y')}}
+                        <small>({{admin.createdAt|date('H:i')}})</small>
+                     </td>
+                     <td>
+                        <span class="tag is-{{admin.isActive ? 'success' : 'dark'}}">{{admin.isActive ? 'Si' : 'No'}}</span>
+                     </td>
+                     <td>
+                        <span class="tag is-{{admin.token ? 'warning' : 'dark'}}">{{admin.token ? 'Si' : 'No'}}</span>
+                     </td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </section>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

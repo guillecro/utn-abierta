@@ -1,0 +1,140 @@
+//Import
+@import 'variables';
+@import 'bulma';
+@import "../css/font-awesome.min.css"; //Landing Page
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+@import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Chewy');
+@import url('https://fonts.googleapis.com/css?family=Archivo+Black');
+@import url('https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i');
+html {
+    font-family: 'Roboto', inherit;
+}
+.is-marker {
+    font-family: 'Permanent Marker' !important;
+}
+.is-alfa {
+    font-family: 'Alfa Slab One' !important;
+}
+.is-raleway {
+    font-family: 'Raleway' !important;
+}
+.is-chewy {
+    font-family: 'Chewy' !important;
+}
+.is-archivo {
+    font-family: 'Archivo Black' !important;
+}
+.is-oswald {
+    font-family: 'Oswald' !important;
+}
+.is-merry {
+    font-family: 'Merriweather' !important;
+}
+.is-100 {
+    font-weight: 100;
+}
+.is-200 {
+    font-weight: 200;
+}
+.is-300 {
+    font-weight: 300;
+}
+.is-400 {
+    font-weight: 400;
+}
+.is-500 {
+    font-weight: 500;
+}
+.is-600 {
+    font-weight: 600;
+}
+.is-700 {
+    font-weight: 700;
+}
+.is-800 {
+    font-weight: 800;
+}
+#nav-intro {
+    background-image: url('../img/header-3.jpg');
+    background-size: cover;
+    background-position: center center;
+    .hero-body {
+        background-image: url('../img/svg/pattern-50.svg');
+        background-size: cover;
+    }
+    img {
+        max-width: 500px;
+    }
+    h2 {
+        // font-family: 'Permanent Marker', cursive;
+        font-family: 'Alfa Slab One', cursive;
+    }
+}
+#horarios {}
+#contacts {
+    .icon {
+        color: $info;
+    }
+    a {
+        color: $info;
+    }
+}
+#apertura {
+    img {
+        margin: 0 auto;
+        max-width: 160px;
+        transform: rotate(15deg);
+    }
+    .iconos {
+        display: inline-flex;
+    }
+}
+.disclaimer {
+    font-size: 12px;
+    color: #888888;
+    line-height: normal;
+}
+.saludo {
+    color: #c9c9c9;
+    .carita {
+        font-size: 60px;
+        @media (min-width: $desktop) {
+            font-size: 130px;
+        }
+        font-weight: 300;
+    }
+    h1 {
+        color: #c9c9c9;
+    }
+}
+.admin {
+    .navbar {
+        // border-bottom: 1px solid #CACACA;
+    }
+    .button {
+        font-weight: 900;
+    }
+    .dashboard-info .notification.is-light{
+        h1.title,
+        h2.subtitle {
+            color: #A1A1A1;
+        }
+    }
+}
+#crear-fecha {
+    input {
+        border: 0;
+        box-shadow: none;
+        font-family: 'Oswald';
+        font-weight: 600;
+        font-size: 2.3rem;
+        color: $primary;
+    }
+}
+.color-primary {
+    color: $primary;
+}

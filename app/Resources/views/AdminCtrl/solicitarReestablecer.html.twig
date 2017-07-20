@@ -1,0 +1,65 @@
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block scriptshead %}
+<script src="https://www.google.com/recaptcha/api.js?hl=es-419" async defer></script>
+{% endblock %}
+
+{% block body %}
+<section class="hero is-info is-fullheight">
+  <!-- Hero header: will stick at the top -->
+  <div class="hero-head">
+    <header class="nav">
+      <div class="container is-fluid">
+        <div class="nav-left">
+          <a class="nav-item">
+            <img src="{{asset('img/logo-utn-white.svg')}}" alt="Logo">
+          </a>
+        </div>
+
+      </div>
+    </header>
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="columns">
+                <div class="content column is-half is-offset-one-quarter">
+                    <h1 class="is-5 subtitle is-400 is-raleway">¿Olvido su contraseña?</h1>
+					{% if app.session.flashBag.has('error')|length > 0 %}
+					<div class="notification is-warning">
+							<b>Errores en el formulario</b>
+						{% for flash_message in app.session.flashBag.get('error') %}
+						<p>{{ flash_message }}</p>
+						{% endfor %}
+					</div>
+					{% endif %}
+					<form action="{{path('runSolicitarReestablecerPassword')}}" method="POST">
+
+						<div class="box">
+							<p>Ingrese su email para poder reestablecer su contraseña</p>
+							<div class="content">
+								<p class="control has-icon">
+									<input class="input is-medium" name="user-email" type="email" placeholder="Email" >
+									<span class="icon is-small">
+										<i class="fa fa-envelope"></i>
+									</span>
+								</p>
+								<div class="is-clearfix">
+									<div class="g-recaptcha is-pulled-left" data-sitekey="6LeInigUAAAAAN6D-KwDsbVJmUwc-oLdhSSlGMhR" data-callback="onSubmit"></div>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="csrf_token" value="{{ csrf_token( 'formRecuperar' ) }}">
+						<button type="submit" class="button is-white is-medium is-pulled-right">Reestablecer contraseña</button>
+					</form>
+					<a href="{{path('showLogin')}}" class="button is-white is-outlined is-small is-pulled-left">Volver atras</a>
+                </div>
+            </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

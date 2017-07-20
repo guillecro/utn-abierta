@@ -1,0 +1,25 @@
+{% extends "::master.html.twig" %}
+
+{% block title %}Error 404{% endblock %}
+
+{% block body %}
+   <section id="error" class="hero is-danger is-bold is-fullheight ">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns">
+                <div class="column is-half is-offset-one-quarter">
+                    <span class="icon is-large"><i class="fa fa-times-circle"></i></span>
+                    <h1 class="title is-2 is-raleway is-700">Error</h1>
+                    <h4 class="subtitle is-5" style="margin-bottom:10px;">{{mensaje}}</h4>
+                    <h4 class="subtitle is-6">Contactesé con el administrador e intente más tarde<br>guillermocroppi@gmail.com</h4>
+                    <a href="{{callback}}" class="button is-dark is-outlined is-inverted is-400 is-raleway"><span class="icon is-small"><i class="fa fa-reply"></i></span>&nbsp;&nbsp;Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

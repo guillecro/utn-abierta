@@ -1,0 +1,50 @@
+{% set bodyclass = 'admin' %}
+
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+{% block scriptshead %}
+
+{% endblock %}
+
+{% block body %}
+   {% include ':AdminCtrl/admin:navbar.html.twig' %}
+<section class="section">
+   <div class="container">
+       <h1 class="title is-1 is-marker">Instituciones registradas</h1>
+       <hr>
+         <table class="table is-striped is-narrow">
+            <thead>
+               <tr>
+                  <th>Nombre</th>
+                  <th>Teléfono</th>
+                  <th>Localidad</th>
+                  <th>Provincia</th>
+                  <th>Docente</th>
+                  <th width="120px">Fecha registro</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for institucion in instituciones %}
+                  <tr>
+                     <td><a href="{{path('showInstitucion',{'institucionID' : institucion.id})}}">{{institucion.nombre}}</a>
+                     {% if institucion.reserva.deletedAt is not null %}<br><span class="tag is-danger is-small"> <span class="icon is-small"><i class="fa fa-times"></i></span> Canceló</span>{% endif %}
+                     </td>
+                     <td>{{institucion.telefono}}</td>
+                     <td>{{institucion.localidad}}</td>
+                     <td>{{institucion.provincia}}</td>
+                     <td>{{institucion.docenteNombre}}</td>
+                     <td><small>{{institucion.createdAt|date('d-m-Y')}}</small></td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+   </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

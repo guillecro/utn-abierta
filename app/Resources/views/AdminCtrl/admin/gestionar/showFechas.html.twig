@@ -1,0 +1,41 @@
+{% set bodyclass = 'admin' %}
+
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+{% block scriptshead %}
+{% endblock %}
+
+{% block body %}
+   {% include ':AdminCtrl/admin:navbar.html.twig' %}
+<section class="section">
+   <div class="container">
+      <h1 class="title is-1 is-marker">Horarios disponibles</h1>
+      <a href="{{path('showCrearFecha')}}" class="button is-primary"><span class="icon"><i class="fa fa-star-o"></i></span>&nbsp;&nbsp;&nbsp;Nueva fecha</a>
+       <hr>
+         <table class="table is-striped is-narrow">
+            <thead>
+               <tr>
+                  <th>Fecha</th>
+                  <th>Horario</th>
+                  <th>Cupos Restantes</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for fecha in fechas %}
+                  <tr>
+                     <td>{{fecha.fecha|date('l, d \\d\\e F Y')|toEs}}</td>
+                     <td>{{fecha.hora|date('H:i')}}</td>
+                     <td>{{fecha.cuposRestantes}} de {{fecha.cupos}}</td>
+                  </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+   </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

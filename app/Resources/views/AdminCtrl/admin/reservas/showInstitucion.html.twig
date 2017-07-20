@@ -1,0 +1,92 @@
+{% set bodyclass = 'admin' %}
+
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+{% block scriptshead %}
+
+{% endblock %}
+
+{% block body %}
+   {% include ':AdminCtrl/admin:navbar.html.twig' %}
+<section class="section">
+   <div class="container">
+      {% if institucion.reserva.deletedAt is not null %}<span class="tag is-danger is-medium"> <span class="icon is-small"><i class="fa fa-times"></i></span> Canceló reserva</span><br>{% endif %}
+       <h1 class="title is-1 is-oswald">{{institucion.nombre}}</h1>
+             <a href="{{path('printReservas')}}" class="button is-primary"><span class="icon"><i class="fa fa-pencil"></i></span>&nbsp;&nbsp;&nbsp;Editar</a>
+             {% if institucion.reserva.deletedAt is null %}
+             <a href="{{path('showReservaInstitucion', {'reservaID':institucion.reserva.id})}}" class="button is-primary"><span class="icon"><i class="fa fa-tag"></i></span>&nbsp;&nbsp;&nbsp;Ver Reserva</a>
+             {% else %}
+             <a class="button is-primary" disabled><span class="icon"><i class="fa fa-tag"></i></span>&nbsp;&nbsp;&nbsp;Ver Reserva</a>
+             {% endif %}
+       <hr>
+         <table class="table is-striped is-bordered">
+
+            <tbody>
+                 <tr>
+                     <th>Fecha de registro</th>
+                     <td>{{institucion.createdAt|date('l, d \\d\\e F Y - H:i')|toEs}}</td>
+                  </tr>
+                  <tr>
+                     <th>Direccion</th>
+                     <td>{{institucion.direccion}}</td>
+                  </tr>
+                  <tr>
+                     <th>Telefóno</th>
+                     <td>{{institucion.telefono}}</td>
+                  </tr>
+                <tr>
+                     <th>Localidad</th>
+                     <td>{{institucion.localidad}}</td>
+                  </tr>
+                <tr>
+                     <th>Provincia</th>
+                     <td>{{institucion.provincia}}</td>
+                  </tr>
+                <tr>
+                     <th>Email</th>
+                     <td><a href="mailto:{{institucion.email}}">{{institucion.email}}</a></td>
+                  </tr>
+                <tr>
+                     <th>Terminalidad/es</th>
+                     <td>{{institucion.terminalidad}}</td>
+                  </tr>
+                <tr>
+                     <th>Nota</th>
+                     <td>{{institucion.infoExtra}}</td>
+                  </tr>
+                <tr>
+                     <th>Docente</th>
+                     <td>{{institucion.docenteNombre}}</td>
+                  </tr>
+                  <tr>
+                     <th>Docente Telefono</th>
+                     <td>{{institucion.docenteTelefono}}</td>
+                  </tr>
+                  <tr>
+                     <th>Docente Email</th>
+                     <td><a href="mailto:{{institucion.docenteEmail}}">{{institucion.docenteEmail}}</td>
+                  </tr>
+                  <tr>
+                     <th>Secundario</th>
+                     <td>{{institucion.optativoNombre}}</td>
+                  </tr>
+                  <tr>
+                     <th>Secundario Telefono</th>
+                     <td>{{institucion.optativoTelefono}}</td>
+                  </tr>
+                  <tr>
+                     <th>Secundario Email</th>
+                     <td><a href="mailto:{{institucion.optativoEmail}}">{{institucion.optativoEmail}}</td>
+                  </tr>
+            </tbody>
+         </table>
+   </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

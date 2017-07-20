@@ -1,0 +1,94 @@
+COMANDOS UTILES
+=========================================
+
+$ php bin/console server:run
+# Actualiza la base de datos con respecto a los esquemas
+
+$ php bin/console doctrine:schema:update --force
+$ php bin/console doctrine:schema:update --dump-sql
+# Actualiza la base de datos con respecto a los esquemas
+
+$ php bin/console doctrine:schema:create
+# Actualiza la base de datos con respecto a los esquemas
+
+$ php bin/console doctrine:generate:entities AppBundle/Entity
+$ php bin/console doctrine:generate:entities AppBundle/Entity/Sala
+$ php bin/console doctrine:generate:entities AppBundle/Entity/Nodo
+$ php bin/console doctrine:generate:entities AppBundle/Entity/Localidad
+
+
+$ php app/console doctrine:fixtures:load --fixtures=/path/to/seeds/folder --append
+# AVERIGUAR para hacer datos bases.
+
+-------------------------------------
+
+export SYMFONY_ENV=prod
+
+composer install --no-dev --optimize-autoloader
+
+    php bin/console cache:clear --env=prod --no-debug
+
+guillecro@vps-1332383-x:/var/www$ sudo chown -R guillecro:guillecro escenasantafesina.gob.ar/
+guillecro@vps-1332383-x:/var/www$ sudo chmod -R 755 /var/www
+
+guillecro@vps-1332383-x:/var/www/escenasantafesina.gob.ar$ sudo rm -rf var/cache/*
+guillecro@vps-1332383-x:/var/www/escenasantafesina.gob.ar$ sudo rm -rf var/logs/*
+guillecro@vps-1332383-x:/var/www/escenasantafesina.gob.ar$ HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+guillecro@vps-1332383-x:/var/www/escenasantafesina.gob.ar$  sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var
+guillecro@vps-1332383-x:/var/www/escenasantafesina.gob.ar$  sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var
+
+
+https://serverfault.com/questions/134692/apache-and-linux-file-permissions
+mapache@guillecro:/var/www/escena-santafesina/web$ sudo chown www-data:www-data archivos/ -R
+
+
+/etc/php/7.0/apache2/php.ini
+post_max_size = 120M
+upload_max_filesize = 105   M
+
+Instalando CertBot de Lets Encrypt
+https://serverfault.com/questions/816392/lets-encrypt-automatically-redirect-to-https-not-working
+
+>>>> escena.conf
+
+<VirtualHost *:80>
+RewriteEngine on
+RewriteCond %{SERVER_NAME} =escenasantafesina.gob.ar [OR]
+RewriteCond %{SERVER_NAME} =www.escenasantafesina.gob.ar
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+
+>>>> escena-le-ssl.conf
+
+<IfModule mod_ssl.c>
+    <VirtualHost *:443>
+        ServerAdmin guillermocroppi@gmail.com
+        ServerName escenasantafesina.gob.ar
+        ServerAlias www.escenasantafesina.gob.ar
+        DocumentRoot /var/www/escena-santafesina/web
+        <Directory /var/www/escena-santafesina/web>
+            AllowOverride None
+            Require all granted
+            Allow from All
+
+            <IfModule mod_rewrite.c>
+                Options -MultiViews
+                RewriteEngine On
+                RewriteCond %{REQUEST_FILENAME} !-f
+                RewriteRule ^(.*)$ app.php [QSA,L]
+            </IfModule>
+        </Directory>
+
+        # uncomment the following lines if you install assets as symlinks
+        # or run into problems when compiling LESS/Sass/CoffeScript assets
+        # <Directory /var/www/project>
+        #     Options FollowSymlinks
+        # </Directory>
+
+        ErrorLog /var/log/apache2/symfony_error.log
+        CustomLog /var/log/apache2/symfony_access.log combined
+        SSLCertificateFile /etc/letsencrypt/live/escenasantafesina.gob.ar/fullchain.pem
+        SSLCertificateKeyFile /etc/letsencrypt/live/escenasantafesina.gob.ar/privkey.pem
+        Include /etc/letsencrypt/options-ssl-apache.conf
+    </VirtualHost>
+</IfModule>

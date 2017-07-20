@@ -1,0 +1,179 @@
+{% set bodyclass = 'admin' %}
+
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/rangeslider.css') }}">
+{% endblock %}
+
+{% block scriptshead %}
+
+{% endblock %}
+
+{% block body %}
+   {% include ':AdminCtrl/admin:navbar.html.twig' %}
+<section class="section">
+   <div class="container">
+      <h1 class="title is-1 is-marker">Reserva</h1>
+      <a href="javascript:showModalFecha()" class="button is-primary"><span class="icon"><i class="fa fa-pencil"></i></span>&nbsp;&nbsp;&nbsp;Cambiar fecha</a>
+      <a href="javascript:showModalCupo()" class="button is-primary"><span class="icon"><i class="fa fa-pencil"></i></span>&nbsp;&nbsp;&nbsp;Cambiar cupo</a>
+      <a href="javascript:showModalCancelar()" class="button is-danger"><span class="icon"><i class="fa fa-times"></i></span>&nbsp;&nbsp;&nbsp;Cancelar reserva</a>
+       <hr>
+       <h1 class="title is-3 is-oswald">Reservado por:<br><a href="{{path('showInstitucion', {'institucionID' : reserva.institucion.id})}}">{{reserva.institucion.nombre}}</a></h1>
+       <h2 class="subtitle is-5 is-oswald">Se registró el {{reserva.createdAt|date('l, d \\d\\e F Y')|toEs}}</h2>
+       <div class="columns">
+           <div class="column">
+           <div class="box has-text-centered">
+       <span class="icon is-large"><i class="fa fa-calendar"></i></span><br><h1 class="title is-4 is-oswald is-600">{{reserva.fecha.fecha|date('l, d \\d\\e F Y')|toEs}}</h1>
+           </div>
+           </div>
+            <div class="column">
+           <div class="box has-text-centered">
+       <span class="icon is-large"><i class="fa fa-clock-o"></i></span><br><h1 class="title is-4 is-oswald is-600">A las {{reserva.fecha.hora|date('H:i')}} Hs</h1>
+           </div>
+           </div>
+           <div class="column">
+               <div class="box has-text-centered">
+                   <span class="icon is-large"><i class="fa fa-users"></i></span>
+                   <br>
+                   <h1 class="title is-4 is-oswald is-600">Vienen <color class="color-primary">{{reserva.cupo}}</color> alumnos</h1>
+               </div>
+           </div>
+       </div>
+       <p class="disclaimer">NOTA: En el horario, vienen unos {{reserva.fecha.cupos - reserva.fecha.cuposRestantes}} alumnos en total.</p>
+   </div>
+</section>
+<div id="cancelarReserva" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+         <h1 class="title is-3 is-oswald">¿Eliminar reserva?</h1>
+         <p>Esta acción no la podes revertir!</p>
+         <p class="disclaimer">(Internamente damos de baja la reserva, pero no eliminamos el registro de la institución)</p>
+         <br>
+         <form action="{{path('runCancelarReserva', {'reservaID':reserva.id})}}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token( 'formCancelarReserva' ) }}">
+             <button type="submit" class="button is-danger">Si si, eliminarla</button>
+         </form>
+    </div>
+  </div>
+  <button class="modal-close is-large"></button>
+</div>
+<div id="cambiarCupo" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+         <h2 class="title is-3 is-300 is-oswald has-text-centered">¿Cuantos alumnos vendrán a la visita?</h2>
+         <form action="{{path('runCambiarCupo', {'reservaID':reserva.id})}}" method="POST">
+                  <input name="reserva-cupo" type="range" min="2" max="{{reserva.fecha.cuposRestantes + reserva.cupo}}" step="1" value="{{reserva.cupo}}" data-rangeslider="">
+                  <br>
+
+                  <h2 class="title is-2 is-300 is-oswald has-text-centered">
+                     <span><b id="cantidadAlumnosSlider" class="is-oswald is-600">2</b></span>
+                     alumnos</h2>
+                  <div class="has-text-centered">
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token( 'formCambiarCupo' ) }}">
+             <button type="submit" class="button is-primary">¡Cambiar cupo!</button>
+                  </div>
+         </form>
+    </div>
+  </div>
+  <button class="modal-close is-large"></button>
+</div>
+<div id="cambiarFecha" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+         <h1 class="title is-3 is-oswald">¿Cambiar fecha?</h1>
+                   <form action="{{path('runCambiarFecha', {'reservaID':reserva.id})}}" method="post">
+
+                    <h1 class="title is-5 is-raleway">Los horarios disponibles para {{reserva.cupo}} alumnos són:</h1>
+                  <table class="table is-narrow is-striped">
+                     <thead>
+                        <tr>
+                           <th>
+                              <span class="icon is-small">
+                                 <i class="fa fa-arrow-down"></i>
+                              </span>
+                           </th>
+                           <th>
+                              <span class="icon is-small">
+                                 <i class="fa fa-calendar"></i>
+                              </span>
+                              Dia</th>
+                           <th style="text-align: center;">
+                              <span class="icon is-small">
+                                 <i class="fa fa-clock-o"></i>
+                              </span>
+                              Horario</th>
+                           <th style="text-align: right;">
+                              <span class="icon is-small">
+                                 <i class="fa fa-user"></i>
+                              </span>
+                              Cupos disponibles</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                      {% if fechas|length > 0%}
+                       {% for fecha in fechas %}
+                       {% if fecha.id != reserva.fecha.id%}
+                        <tr id="fila-fecha-{{fecha.id}}" class="fila-fecha" data-cupo="{{fecha.cuposRestantes}}">
+                           <td><input type="radio" name="reserva-fechaID" value="{{fecha.id}}" class="control is-large" data-fechaid="{{fecha.id}}" required></td>
+                            <td>{{fecha.fecha|date('l, d \\d\\e F Y')|toEs}}</td>
+                     <td class="has-text-centered">{{fecha.hora|date('H:i')}}</td>
+                     <td class="has-text-right">{{fecha.cuposRestantes}} cupos libres</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="4">No hay fechas!</td>
+                        </tr>
+                        {% endif %}
+                     </tbody>
+                  </table>
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token( 'formCambiarFecha' ) }}">
+             <button type="submit" class="button is-primary">¡Cambiar fecha!</button>
+                   </form>
+                  </div>
+    </div>
+  <button class="modal-close is-large"></button>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+   <script src="{{asset('js/rangeslider.js')}}"></script>
+<script>
+    $(document).ready(function() {
+    $('input[type=radio][name=reserva-fechaID]').change(function() {
+        $('.fila-fecha').removeClass('is-selected')
+        $('#fila-fecha-' + $(this).data('fechaid')).addClass('is-selected')
+    });
+
+           $( 'input[type="range"]' ).rangeslider({
+         polyfill: false,
+         // Callback function
+         onInit: function( ) {
+          $('#cantidadAlumnosSlider').html($( 'input[type="range"]' ).val());
+         },
+
+         // Callback function
+         onSlide: function( position, value ) {
+           $('#cantidadAlumnosSlider').html(value);
+         }
+      });
+});
+
+    function showModalCancelar() {
+               $('#cancelarReserva').addClass('is-active');
+            }
+            function showModalCupo() {
+               $('#cambiarCupo').addClass('is-active');
+            }
+            function showModalFecha() {
+                $('#cambiarFecha').addClass('is-active');
+            }
+</script>
+{% endblock %}

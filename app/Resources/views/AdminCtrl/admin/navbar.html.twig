@@ -1,0 +1,95 @@
+<nav class="navbar">
+   <div class="navbar-brand">
+      <a class="navbar-item" href="{{path('showIndex')}}">
+         <img src="{{asset('img/logo-utn.svg')}}" alt="Bulma: a modern CSS framework based on Flexbox">
+      </a>
+      <div class="navbar-burger" data-target="navMenuExample">
+         <span></span>
+         <span></span>
+         <span></span>
+      </div>
+   </div>
+   <div id="navMenuExample" class="navbar-menu">
+      <div class="navbar-start">
+         <a class="navbar-item " href="{{path('showDashboard')}}">
+            Dashboard
+         </a>
+         <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link " href="javascript:void(0)">
+               Reservas
+            </a>
+            <div class="navbar-dropdown is-boxed">
+               <a class="navbar-item " href="{{path('showReservas')}}">
+                  Vista general
+               </a>
+               <a class="navbar-item " href="{{path('showInstituciones')}}">
+                  Instituciones
+               </a>
+            </div>
+         </div>
+         <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link " href="javascript:void(0)">
+               Gestionar
+            </a>
+            <div id="blogDropdown" class="navbar-dropdown is-boxed" data-style="width: 18rem;">
+               <a class="navbar-item" href="{{path('showFechas')}}">
+                  Fechas y Horarios
+               </a>
+               <a class="navbar-item" href="{{path('showAdmins')}}">
+                  Administradores
+               </a>
+               <hr class="navbar-divider">
+               <a class="navbar-item" href="{{path('showAdmins')}}">
+                  Cambiar contraseña
+               </a>
+            </div>
+         </div>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+            Hey {{app.user.nombre}}!
+         </div>
+         <div class="navbar-item">
+            <span class="tag is-primary is-small">v. 0.1</span>
+         </div>
+         <div class="navbar-item">
+            <p class="control">
+               <a class="button" href="{{path('logout')}}">
+                  <span class="icon">
+                     <i class="fa fa-sign-out"></i>
+                  </span>
+                  <span>Salir</span>
+               </a>
+            </p>
+         </div>
+      </div>
+   </div>
+</nav>
+            {% if app.session.flashBag.has('success')|length > 0 %}
+            <section class="hero is-success is-bold">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title is-oswald is-2">
+                            <span class="icon title"><i class="fa fa-check-circle fa-lg"></i></span>&nbsp;¡EXITO!
+                        </h1>
+                        {% for flash_message in app.session.flashBag.get('success') %}
+                        <p><span class="icon"><i class="fa fa-check"></i></span><span class="icon"><i class="fa fa-caret-right"></i></span>{{ flash_message }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+            {% if app.session.flashBag.has('error')|length > 0 %}
+            <section class="hero is-danger is-bold">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title is-oswald is-2">
+                            ERROR
+                        </h1>
+                        {% for flash_message in app.session.flashBag.get('error') %}
+                        <p><span class="icon"><i class="fa fa-times"></i></span><span class="icon"><i class="fa fa-caret-right"></i></span>{{ flash_message }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}

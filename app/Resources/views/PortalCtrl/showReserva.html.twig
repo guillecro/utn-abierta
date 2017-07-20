@@ -1,0 +1,417 @@
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/rangeslider.css') }}">
+{% endblock %}
+{% block scriptshead %}
+   <script src='https://www.google.com/recaptcha/api.js?hl=es-419'></script>
+{% endblock %}
+
+{% block body %}
+   <nav class="navbar">
+      <div class="navbar-brand">
+         <a class="navbar-item" href="{{path('showIndex')}}">
+            <img src="{{asset('img/logo-utn.svg')}}" alt="Bulma: a modern CSS framework based on Flexbox" width="212" height="28">
+         </a>
+         <div class="navbar-burger">
+            <span></span>
+            <span></span>
+            <span></span>
+         </div>
+      </div>
+   </nav>
+   {% if app.session.flashBag.has('success')|length > 0 %}
+            <section class="hero is-success is-bold">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title is-oswald is-2">
+                            <span class="icon title"><i class="fa fa-check-circle fa-lg"></i></span>&nbsp;¡EXITO!
+                        </h1>
+                        {% for flash_message in app.session.flashBag.get('success') %}
+                        <p><span class="icon"><i class="fa fa-check"></i></span><span class="icon"><i class="fa fa-caret-right"></i></span>{{ flash_message }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+            {% if app.session.flashBag.has('error')|length > 0 %}
+            <section class="hero is-danger is-bold">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title is-oswald is-2">
+                            ERROR
+                        </h1>
+                        {% for flash_message in app.session.flashBag.get('error') %}
+                        <p><span class="icon"><i class="fa fa-times"></i></span><span class="icon"><i class="fa fa-caret-right"></i></span>{{ flash_message }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+   <section class="section">
+      <div class="container">
+         <div class="columns">
+            <div class="column is-4 is-offset-4 has-text-centered">
+               <img src="{{asset('img/logo-color-2.svg')}}" class="image" alt="">
+               <br>
+               <h1 class="title is-2 is-oswald">Reservá tu turno</h1>
+            </div>
+         </div>
+         <div class="columns">
+            <div class="column is-8 is-offset-2 ">
+               <form action="{{path('runReserva')}}" method="post">
+                  <div class="notification is-info">
+                     <h1 class="title is-4 is-raleway">Datos de la institución</h1>
+                  </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-large">
+                        <label class="label">Nombre</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-expanded ">
+                           <p class="control">
+                              <input name="institucion-nombre" class="input is-large" type="text" placeholder="(De la institución educativa)" required>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-normal">
+                        <label class="label">Dirección</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-expanded">
+                           <p class="control">
+                              <input name="institucion-direccion" class="input is-normal" type="text" placeholder="" required>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-normal">
+                        <label class="label">Email de la institución</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-expanded">
+                           <p class="control">
+                              <input name="institucion-email" class="input is-normal" type="email" placeholder="" required>
+                              <span class="help is-danger">
+                                 <b>¡Importante!</b>
+                                 Utilizaremos este email para poder contactarnos con la institución</span>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-normal">
+                        <label class="label">Localidad y Provincia</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-grouped">
+                           <p class="control is-expanded">
+                              <input name="institucion-localidad" class="input" type="text" placeholder="Localidad" required>
+                           </p>
+                        </div>
+                        <div class="field">
+                           <p class="control is-expanded">
+                              <input name="institucion-provincia" class="input" type="text" placeholder="Provincia" required>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-normal">
+                        <label class="label">Teléfono</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-expanded ">
+                           <p class="control">
+                              <input  name="institucion-telefono" class="input is-normal" type="text" placeholder="" required>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-normal">
+                        <label class="label">Terminalidades</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-expanded ">
+                           <p class="control">
+                              <input name="institucion-terminalidades" class="input is-normal" type="text" placeholder="Ej: Ciencias Naturales, Mecanica, Etc.." required>
+                              <span class="help is-info">Indique de que terminalidad/es son los estudiantes que nos visitan</span>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-normal">
+                        <label class="label">Información Extra</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field">
+                           <div class="control">
+                              <textarea name="institucion-extra" class="textarea" placeholder="¿Alguna información que tengamos que saber con respecto a su visita? Escríbalo en este campo"></textarea>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <br>
+                  <div class="notification is-info">
+                     <h1 class="title is-4 is-raleway">Horario para visitar</h1>
+                  </div>
+                  <h2 class="title is-3 is-300 is-oswald has-text-centered">¿Cuantos alumnos vendrán a la visita?</h2>
+                  <input name="reserva-cupo" type="range" min="2" max="150" step="1" value="2" data-rangeslider="">
+                  <br>
+
+                  <h2 class="title is-2 is-300 is-oswald has-text-centered">
+                     <span><b id="cantidadAlumnosSlider" class="is-oswald is-600">2</b></span>
+                     alumnos</h2>
+                  <br>
+                  <h1 class="title is-5 is-raleway">Los horarios disponibles son:</h1>
+                  <table class="table is-narrow is-striped">
+                     <thead>
+                        <tr>
+                           <th>
+                              <span class="icon is-small">
+                                 <i class="fa fa-arrow-down"></i>
+                              </span>
+                           </th>
+                           <th>
+                              <span class="icon is-small">
+                                 <i class="fa fa-calendar"></i>
+                              </span>
+                              Dia</th>
+                           <th>
+                              <span class="icon is-small">
+                                 <i class="fa fa-clock-o"></i>
+                              </span>
+                              Horario</th>
+                           <th>
+                              <span class="icon is-small">
+                                 <i class="fa fa-user"></i>
+                              </span>
+                              Cupos disponibles</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                      {% if fechas|length > 0%}
+                       {% for fecha in fechas %}
+                        <tr id="fila-fecha-{{fecha.id}}" class="fila-fecha" data-cupo="{{fecha.cuposRestantes}}">
+                           <td><input type="radio" name="reserva-fechaID" value="{{fecha.id}}" class="control is-large" data-fechaid="{{fecha.id}}" required></td>
+                            <td>{{fecha.fecha|date('l, d \\d\\e F Y')|toEs}}</td>
+                     <td>{{fecha.hora|date('H:i')}}</td>
+                     <td>{{fecha.cuposRestantes}} cupos libres</td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="4">No hay fechas!</td>
+                        </tr>
+                        {% endif %}
+                     </tbody>
+                  </table>
+                  <div class="notification is-info">
+                     <h1 class="title is-4 is-raleway">Datos de los docentes</h1>
+                  </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-medium">
+                        <label class="label">Docente</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-expanded ">
+                           <p class="control">
+                              <input name="docente-nombre" class="input is-large" type="text" placeholder="Nombre y Apellido" required>
+                              <span class="help is-danger">
+                                 <b>¡Requerido!</b>
+                                 Indique un docente
+                                 <u>responsable</u>
+                                 que acompañará la visita</span>
+                           </p>
+                         </div>
+                        </div>
+                     </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-medium">
+                        <label class="label">Teléfono y Email</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-grouped">
+                           <p class="control is-expanded">
+                              <input name="docente-telefono" class="input is-large" type="text" placeholder="Teléfono" required>
+                           </p>
+                        </div>
+                        <div class="field">
+                           <p class="control is-expanded">
+                              <input name="docente-email" class="input is-large" type="email" placeholder="Email" required>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-normal">
+                        <label class="label">Docente Auxiliar</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-expanded ">
+                           <p class="control">
+                              <input name="aux-nombre" class="input is-normal" type="text" placeholder="(Opcional) Nombre y Apellido">
+                              <span class="help is-info">
+                                 <b>Nota:</b>
+                                 Puede colocar los datos de un docente
+                                 <u>auxiliar</u>
+                                 en caso de no contar con el docente responsable</span>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="field is-horizontal">
+                     <div class="field-label is-normal">
+                        <label class="label">Teléfono y Email</label>
+                     </div>
+                     <div class="field-body">
+                        <div class="field is-grouped">
+                           <p class="control is-expanded">
+                              <input name="aux-telefono" class="input is-normal" type="text" placeholder="(Opcional) Teléfono">
+                           </p>
+                        </div>
+                        <div class="field">
+                           <p class="control is-expanded">
+                              <input name="aux-email" class="input is-normal" type="email" placeholder="(Opcional) Email">
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <hr>
+                  <p class="disclaimer">Al enviar este formulario, acepto que el sistema "UTN Abierta" hecha para la UTN FRSF mantenga mis datos personales y de la institución a la que inscribo. Al mismo tiempo acepto que la UTN FRSF mantenga los datos que crea conveniente, y la UTN FRSF se compromete a resguardar los datos de forma segura y no distribuirlas a terceros</p><br>
+                  <div class="is-clearfix">
+                     <div class="pull-right">
+                        <div class="g-recaptcha" data-sitekey="6LeInigUAAAAAN6D-KwDsbVJmUwc-oLdhSSlGMhR"></div>
+                     </div>
+                  </div>
+                  <br>
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token( 'formReservar' ) }}">
+                  <div class="is-clearfix">
+                     <div class="pull-right">
+                        <button type="submit" class="button is-primary is-large is-raleway is-800">
+                           <span class="icon is-medium">
+                              <i class="fa fa-send"></i>
+                           </span>&nbsp;&nbsp;¡Enviar!
+                        </button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </section>
+   <hr>
+   <section class="section">
+      <div class="container">
+         <div class="container">
+            <div class="columns">
+               <div class="column is-6 is-offset-3">
+                  <div class="column has-text-centered">
+                     <h1 class="title is-2 is-raleway is-800">¿Dudas? ¿Consultas?</h1>
+                     <p>Cualquier necesidad de contactarse con nosotros por dudas con respecto a la visita o con todo lo que tenga que ver con nuestra institución, no dude en contactarnos</p>
+                  </div>
+               </div>
+            </div>
+            <div id="contacts" class="columns has-text-centered">
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-globe"></i>
+                  </span>
+                  <br>
+                  <a href="https://www.frsf.utn.edu.ar/">Página Web UTN FRSF</a>
+               </div>
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-phone"></i>
+                  </span>
+                  <br>
+                  4601579 int. 5100/5110
+                  <br>
+                  Horario de atención: De 9 a 20 hs
+               </div>
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-envelope"></i>
+                  </span>
+                  <br>
+                  <a href="mailto:ingreso@frsf.utn.edu.ar">ingreso@frsf.utn.edu.ar</a>
+               </div>
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-facebook"></i>
+                  </span>
+                  <br>
+                  <a href="https://www.frsf.utn.edu.ar/">fb.com/UTNSantaFe</a>
+               </div>
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-twitter"></i>
+                  </span>
+                  <br>
+                  <a href="https://www.twitter.com/utnsantafe">@UTNSantaFe</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section id="horarios" class="hero is-small is-dark is-bold">
+      <div class="hero-body">
+         <div class="container">
+            <div class="columns has-text-centered">
+               <div class="column is-6 is-offset-3">
+                  <div class="column has-text-centered">
+                     <a href="https://www.frsf.utn.edu.ar/"><img src="{{asset('img/utn-formal-logo.svg')}}" alt=""></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+{% endblock %}
+
+{% block javascripts %}
+   <script src="{{asset('js/rangeslider.js')}}"></script>
+   <script>
+       $(document).ready(function() {
+    $('input[type=radio][name=reserva-fechaID]').change(function() {
+        $('.fila-fecha').removeClass('is-selected')
+        $('#fila-fecha-' + $(this).data('fechaid')).addClass('is-selected')
+    });
+
+           $( 'input[type="range"]' ).rangeslider({
+         polyfill: false,
+         // Callback function
+         onInit: function( ) {
+          $('#cantidadAlumnosSlider').html($( 'input[type="range"]' ).val());
+         },
+
+         // Callback function
+         onSlide: function( position, value ) {
+           $('#cantidadAlumnosSlider').html(value);
+             checkFilasFechas(value);
+         }
+      });
+
+
+
+      function checkFilasFechas(cupoSelected){
+        $( "tr.fila-fecha" ).each(function( index ) {
+            var cupoFila = $( this ).data('cupo');
+            if(cupoFila >= cupoSelected){
+          $( this ).removeClass('is-hidden');
+            } else {
+          $( this ).addClass('is-hidden');
+            }
+        });
+      }
+});
+   </script>
+{% endblock %}

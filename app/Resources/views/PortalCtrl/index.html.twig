@@ -1,0 +1,221 @@
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}">
+{% endblock %}
+
+{% block body %}
+ {% if app.user is not null %}
+ {% include ':AdminCtrl/admin:navbar.html.twig' %}
+ {% endif %}
+   <section id="nav-intro" class="hero is-info is-medium">
+      <div class="hero-body">
+         <div class="container has-text-centered">
+            <h1 class="title is-1">
+               <img src="{{asset('img/logo-color-white.svg')}}" alt="">
+            </h1>
+            <h2 class="title is-3">
+               Desde el Martes 29/8 al Viernes 1/9
+            </h2>
+            <a href="{{path('showReserva')}}" class="button is-large is-white is-raleway is-600">¡ Reservá un horario !</a>
+         </div>
+      </div>
+   </section>
+   <section id="apertura" class="section">
+      <div class="container">
+         <div class="columns">
+            <div class="column has-text-right">
+               <h1 class="title is-1 is-oswald is-300">¡La
+                  <b>UTN FRSF</b>
+                  abre sus puertas!</h1>
+               <p>Recibimos a los aspirantes en nuestra casa en forma individual, en grupos pequeños o con la escuela recorreremos la Facultad, sus espacios, aulas y laboratorios, el estadio y la biblioteca. Las visitas incluyen charlas y entrevistas con personal y estudiantes de la casa.</p>
+            </div>
+            <div class="column iconos">
+               <img src="{{asset('img/svg/013-transport.svg')}}" class="image" style="" alt="">
+               <img src="{{asset('img/svg/022-draw-stack-of-papers.svg')}}" class="image" style="" alt="">
+               <img src="{{asset('img/svg/011-chemistry-1.svg')}}" class="image" style="" alt="">
+            </div>
+         </div>
+      </div>
+   </section>
+   <section id="horarios" class="hero is-medium is-warning is-bold">
+      <div class="hero-body">
+         <div class="container">
+            <h1 class="title is-1 is-oswald is-800 has-text-centered">Horarios para reservar</h1>
+            <div class="columns has-text-centered">
+               <div class="column">
+                  <div class="card">
+                     <div class="card-content">
+                        <p class="title">
+                           8.30 a 10.00
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="column">
+                  <div class="card">
+                     <div class="card-content">
+                        <p class="title">
+                           9.30 a 11.00
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="column">
+                  <div class="card">
+                     <div class="card-content">
+                        <p class="title">
+                           10.30 a 12.00
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="column">
+                  <div class="card">
+                     <div class="card-content">
+                        <p class="title">
+                           11.30 a 13.00
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <br>
+            <a href="{{path('showReserva')}}" class="button is-large is-info is-raleway is-600" style="width:100%;">
+               <span class="icon">
+                  <i class="fa fa-arrow-right"></i>
+               </span>
+               ¡ Reservá un horario !
+               <span class="icon">
+                  <i class="fa fa-arrow-left"></i>
+               </span>
+            </a>
+         </div>
+      </div>
+   </section>
+   <section class="section">
+      <div class="container">
+         <div class="container">
+            <div class="columns">
+               <div class="column is-6">
+                  <div class="galeria">
+                     {% for i in 1..37 %}
+                        <div><img data-lazy="{{asset('img/galeria/' ~ i ~ '.jpg')}}" alt=""></div>
+                     {% endfor %}
+                  </div>
+                  <br>
+                  <div class="has-text-centered">
+                     <a href="javascript:void(0)" class="imagen-prev button is-info is-outlined">
+                        <span class="icon">
+                           <i class="fa fa-arrow-left"></i>
+                        </span>
+                     </a>
+                     <a href="javascript:void(0)" class="imagen-next button is-info is-outlined">
+                        <span class="icon">
+                           <i class="fa fa-arrow-right"></i>
+                        </span>
+                     </a>
+                  </div>
+               </div>
+               <div class="column is-6 has-text-left">
+                  <h1 class="title is-2 is-oswald is-300">¿Que vamos a ver?</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                     irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <hr>
+   <section class="section">
+      <div class="container">
+         <div class="container">
+            <div class="columns">
+               <div class="column is-6 is-offset-3">
+                  <div class="column has-text-centered">
+                     <h1 class="title is-1 is-oswald is-300">¿Dudas? ¿Consultas?</h1>
+                     <p>Cualquier necesidad de contactarse con nosotros por dudas con respecto a la visita o con todo lo que tenga que ver con nuestra institución, no dude en contactarnos</p>
+                  </div>
+               </div>
+            </div>
+            <div id="contacts" class="columns has-text-centered">
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-globe"></i>
+                  </span>
+                  <br>
+                  <a href="https://www.frsf.utn.edu.ar/">Página Web UTN FRSF</a>
+               </div>
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-phone"></i>
+                  </span>
+                  <br>
+                  4601579 int. 5100/5110
+                  <br>
+                  Horario de atención: De 9 a 20 hs
+               </div>
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-envelope"></i>
+                  </span>
+                  <br>
+                  <a href="mailto:ingreso@frsf.utn.edu.ar">ingreso@frsf.utn.edu.ar</a>
+               </div>
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-facebook"></i>
+                  </span>
+                  <br>
+                  <a href="https://www.frsf.utn.edu.ar/">fb.com/UTNSantaFe</a>
+               </div>
+               <div class="column">
+                  <span class="icon is-large">
+                     <i class="fa fa-twitter"></i>
+                  </span>
+                  <br>
+                  <a href="https://www.twitter.com/utnsantafe">@UTNSantaFe</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section id="horarios" class="hero is-small is-dark is-bold">
+      <div class="hero-body">
+         <div class="container">
+            <div class="columns has-text-centered">
+               <div class="column is-6 is-offset-3">
+                  <div class="column has-text-centered">
+                     <a href="https://www.frsf.utn.edu.ar/"><img src="{{asset('img/utn-formal-logo.svg')}}" alt=""></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+{% endblock %}
+
+{% block javascripts %}
+   <script type="text/javascript" src="{{asset('js/slick.min.js')}}"></script>
+   <script type="text/javascript">
+      $( document ).ready( function( ) {
+         $( '.galeria' ).slick({
+            dots: false,
+            arrows: false,
+            lazyLoad: 'ondemand',
+            centerMode: true,
+            centerPadding: '40px',
+            responsive: true
+         });
+         $( '.imagen-next' ).click( function( ) {
+            $( ".galeria" ).slick( 'slickNext' );
+         });
+         $( '.imagen-prev' ).click( function( ) {
+            $( ".galeria" ).slick( 'slickPrev' );
+         });
+      });
+   </script>
+{% endblock %}

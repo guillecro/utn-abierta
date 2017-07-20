@@ -1,0 +1,34 @@
+{
+  "name": "utn-abierta",
+  "version": "1.0.0",
+  "description": "Sistema de reserva de turnos para visitar la UTN FRSF",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guillecro/utn-abierta.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guillecro/utn-abierta/issues"
+  },
+  "homepage": "https://github.com/guillecro/utn-abierta#readme",
+  "dependencies": {
+    "gulp-clean-css": "^3.5.0",
+    "gulp-csscomb": "^3.0.8",
+    "gulp-less": "^3.3.2",
+    "gulp-rename": "^1.2.2",
+    "less-plugin-autoprefix": "^1.5.1",
+    "vue": "^2.3.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "spectre.css": "^0.2.14"
+  }
+}

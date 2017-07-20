@@ -1,0 +1,40 @@
+{% set bodyclass = 'admin' %}
+
+{% extends '::master.html.twig' %}
+
+{% block title %}Dashboard - UTN Abierta{% endblock %}
+
+{% block stylesheets %}
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/slick.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/slick-theme.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ asset('css/rangeslider.css') }}">
+{% endblock %}
+{% block scriptshead %}
+   <script src='https://www.google.com/recaptcha/api.js?hl=es-419'></script>
+{% endblock %}
+
+{% block body %}
+   {% include ':AdminCtrl/admin:navbar.html.twig' %}
+<section class="section">
+   <div class="container">
+       <div class="columns dashboard-info">
+           <div class="column has-text-centered"><div class="notification is-light"><h1 class="title is-1 is-oswald is-600">{{cantReservas}}</h1> <h2 class="subtitle is-3 is-oswald is-300">reservas</h2></div></div>
+           <div class="column has-text-centered"><div class="notification is-light"><h1 class="title is-1 is-oswald is-600">{{cantAlumnos}}</h1><h2 class="subtitle is-3 is-oswald is-300">alumnos</h2></div></div>
+               <div class="column has-text-centered"><div class="notification is-light"><h1 class="title is-1 is-oswald is-600">{{cantFechas}}</h1><h2 class="subtitle is-3 is-oswald is-300">horarios</h2></div></div>
+       </div>
+   </div>
+   <br>
+   <div class="container is-fluid has-text-centered">
+      <div class="saludo">
+         <div class="carita">{{carita()}}</div>
+         <div class="columns">
+            <div class="column is-4 is-offset-4">
+               <h1 class="subtitle is-3 is-oswald">{{saludo()}}</h1>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

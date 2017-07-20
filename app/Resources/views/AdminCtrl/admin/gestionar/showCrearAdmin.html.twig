@@ -1,0 +1,57 @@
+{% set bodyclass = 'admin' %}
+
+{% extends '::master.html.twig' %}
+
+{% block title %}Crear admin - UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block scriptshead %}{% endblock %}
+
+{% block body %}
+   {% include ':AdminCtrl/admin:navbar.html.twig' %}
+   <section id="crear-fecha" class="section">
+      <div class="container has-text-centered">
+         <div class="columns">
+            <div class="column is-6 is-offset-3">
+               <h1 class="title is-1 is-marker">Nuevo administrador</h1>
+               <p class="disclaimer">¿Otro más vas a agregar? ¡Bueno, pero cuidado! ¡Mirá que no hay vuelta atras!</p>
+
+               <hr>
+               <form action="{{path('runNuevoAdmin')}}" method="post">
+                  <div class="columns">
+                     <div class="column is-6">
+                        <p class="control">
+                           <input name="admin-nombre" class="input is-large has-text-centered" type="text" placeholder="Nombre?" required>
+                        </p>
+                     </div>
+                     <div class="column is-6">
+                        <p class="control">
+                           <input name="admin-apellido" class="input is-large has-text-centered" type="text" placeholder="Apellido?" required>
+                        </p>
+                     </div>
+                  </div>
+                  <hr>
+                  <p class="control">
+                     <input name="admin-email" class="input is-large has-text-centered" type="email" placeholder="Email?" required>
+                  </p>
+                  <br>
+                  <p class="disclaimer">Le voy a mandar un email a esta dirección para que configure su contraseña, avisale por las dudas cuando termines, por si las dudas el correo llega a caer en su casilla de SPAM.. porque a veces pasa.. y bueno.. que le vamos a hacer..</p>
+
+                  <hr>
+                  <button type="submit"class="button is-primary is-medium">
+                     <span class="icon">
+                        <i class="fa fa-plus"></i>
+                     </span>&nbsp;&nbsp;Crear</button>
+                  <br>
+                  <br>
+                  <p class="disclaimer">Porfa trata de no romperme el sistemita. ¡Gracias!</p>
+                  <input type="hidden" name="csrf_token" value="{{ csrf_token( 'formCrearAdmin' ) }}">
+               </form>
+            </div>
+         </div>
+      </div>
+   </section>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

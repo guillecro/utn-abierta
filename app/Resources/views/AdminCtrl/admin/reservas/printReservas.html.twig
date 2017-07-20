@@ -1,0 +1,65 @@
+{% set bodyclass = 'admin' %}
+
+{% extends '::master.html.twig' %}
+
+{% block title %}UTN Abierta - Santa Fe{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+{% block scriptshead %}
+{% endblock %}
+
+{% block body %}
+  <section class="section">
+   <div class="container">
+   <div class="is-clearfix">
+    <img src="{{asset('img/logo-utn.svg')}}" class="is-pulled-right image" style="width: 180px;" alt="">
+      <h1 class="title is-1 is-marker is-pulled-left">Reservas hechas</h1>
+   </div>
+      <hr>
+           {% for dia in dias %}
+       <table class="table is-narrow is-hover">
+            <thead>
+                <tr style="background-color:#222222;">
+                    <th colspan="2" class=" is-oswald is-400" style="text-align:center;color:#FFF;font-size:24px;">{{dia.fecha|date('l, d \\d\\e F Y')|toEs}}</th>
+                </tr>
+            </thead>
+            {% for horario in fechas[dia.fecha|date('Y-m-d')] %}
+            <thead>
+                <tr style="background-color:#f7f7f7;color:#000;">
+                    <th colspan="2" style="text-align:center;"><span class="icon is-small"><i class="fa fa-clock-o"></i></span>&nbsp;A las {{horario.hora|date('H:m')}} - {{horario.cupos - horario.cuposRestantes}} alumnos / {{horario.reservas|length}} Instituciones</th>
+                </tr>
+            </thead>
+
+            <thead>
+                <tr>
+                    <th>Institucion</th>
+                    <th style="text-align: right;" width="120">Alumnos</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for reserva in horario.reservas %}
+         <tr>
+             <td>{{reserva.institucion.nombre}}</td>
+             <td class="has-text-right">{{reserva.cupo}}</td>
+         </tr>
+          {% endfor %}
+            </tbody>
+          {% endfor %}
+
+
+        </table>
+          {% endfor %}
+
+
+   </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+$(document).ready(function(){
+     window.print();
+})
+</script>
+{% endblock %}

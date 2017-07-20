@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es-AR">
+
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>
+         {% block title %}UTN Abierta 2017 - Santa Fe
+         {% endblock %}
+      </title>
+      <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+      <link rel="icon" type="image/x-icon" href="{{ asset('css/utnabierta.min.css') }}"/>
+      {% block opengraph %}
+         <meta property="og:url" content="{{ path('showIndex') }}"/>
+         <meta property="og:type" content="website"/>
+         <meta property="og:title" content="¡UTN Abierta! ¡Del 28/08 al 1/9!"/>
+         <meta
+            property="og:description"
+            content="¡La UTN FRSF abre sus puertas! Invitamos a las escuelas a reservar su visita a la UTN FRSF del 28/08 al 1/9. Recorreremos la Facultad, sus espacios, aulas y laboratorios, el estadio y la biblioteca. Las visitas incluyen charlas y entrevistas con personal y estudiantes de la casa."/>
+         <meta property="og:image" content="{{ asset('img/img-sharer.jpg') }}"/>
+      {% endblock %}
+      <link rel="icon" href="{{ asset('favicon.ico') }}">
+      <link rel="stylesheet" type="text/css" href="{{ asset('css/utnabierta.css') }}">
+      {% block stylesheets %}{% endblock %}
+      <!--[if lt IE 9]> <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
+      {% block scriptshead %}{% endblock %}
+      <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73061346-5', 'auto');
+  ga('send', 'pageview');
+
+</script>
+   </head>
+
+   <body class="{% if bodyclass is defined %}{{bodyclass}}{% endif %}">
+      <div class="wrapper">
+
+         {% block body %}{% endblock %}
+         <div class="push"></div>
+      </div>
+      <!-- Javascripts -->
+      <script  type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+      <script>
+      document.addEventListener('DOMContentLoaded', function () {
+
+  // Get all "navbar-burger" elements
+  var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+  // Check if there are any nav burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach(function ($el) {
+      $el.addEventListener('click', () => {
+
+        // Get the target from the "data-target" attribute
+        var target = $el.dataset.target;
+        var $target = document.getElementById(target);
+
+        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+        $el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+      });
+    });
+  }
+
+});</script>
+     <script>
+       $(document).on('keyup',function(e) {
+                if (e.keyCode == 27) {
+                    $('.modal').removeClass('is-active');
+                }
+            });
+
+       $('.modal-background, .modal-close').click(function() {
+                $(this).parent().removeClass('is-active');
+            });
+
+       </script>
+      {% block javascripts %}{% endblock %}
+   </body>
+
+</html>

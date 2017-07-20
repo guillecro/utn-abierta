@@ -1,0 +1,52 @@
+{% set bodyclass = 'admin' %} {% extends '::master.html.twig' %} {% block title %}Crear fecha - UTN Abierta - Santa Fe{% endblock %} {% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/flatpickr.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/flatpickr-themes/material_blue.css') }}"> {% endblock %} {% block scriptshead %} {% endblock %} {% block body %} {% include ':AdminCtrl/admin:navbar.html.twig' %}
+<section id="crear-fecha" class="section">
+    <div class="container has-text-centered">
+        <div class="columns">
+            <div class="column is-6 is-offset-3">
+                <h1 class="title is-1 is-marker">Nueva fecha</h1>
+                <hr>
+                <form action="{{path('runCrearFecha')}}" method="post">
+                    <h1 class="title is-2 is-oswald is-300">1. ¿Qué <b>día</b> va a ser la visita?</h1>
+                    <p class="control">
+                        <input name="reserva-dia" class="input is-large flatpickr-fecha has-text-centered" type="text" placeholder="Seleccioná una fecha" required> </p>
+                    <hr>
+                    <h1 class="title is-2 is-oswald is-300">2. ¿A qué <b>hora</b> va a ser la visita?</h1>
+                    <p class="control">
+                        <input name="reserva-hora" class="input is-large flatpickr-hora has-text-centered" type="text" placeholder="Elijí la hora!" required> </p>
+                    <hr>
+                    <h1 class="title is-2 is-oswald is-300">3. ¿Cuál es el <b>cupo</b> de alumnos?</h1>
+                    <p class="control">
+                        <input name="reserva-cupo" class="input is-large has-text-centered" type="number" placeholder="Escribilo acá!" min='0' required> </p>
+                    <hr>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token( 'formCrearFecha' ) }}">
+                    <button type="submit" class="button is-primary is-medium"> <span class="icon">
+                        <i class="fa fa-save"></i>
+                     </span>&nbsp;&nbsp;Guardar</button>
+                    <br>
+                    <br>
+                    <p class="disclaimer">Porfa trata de no romperme el sistemita. ¡Gracias!</p>
+                    <br>
+					<a href="{{path('showFechas')}}" class="button is-outlined is-small">Salir</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section> {% endblock %} {% block javascripts %}
+<script src="{{asset('js/flatpickr.min.js')}}"></script>
+<script src="{{asset('js/es.js')}}"></script>
+<script src="{{asset('js/rangeslider.js')}}"></script>
+<script>
+    $(".flatpickr-fecha").flatpickr({
+        locale: 'es'
+        , altFormat: 'l, d F Y'
+        , altInput: true
+    });
+    $(".flatpickr-hora").flatpickr({
+        noCalendar: true
+        , enableTime: true
+        , time_24hr: true
+        , locale: 'es'
+    });
+</script> {% endblock %}
