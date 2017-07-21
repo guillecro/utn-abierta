@@ -7785,7 +7785,7 @@ html {
 
 /* line 61, ../sass/utnabierta.scss */
 #nav-intro {
-  background-image: url("../img/header-3.jpg");
+  background-image: url("../img/header-4.jpg");
   background-size: cover;
   background-position: center center;
 }
@@ -7796,71 +7796,72 @@ html {
 }
 /* line 69, ../sass/utnabierta.scss */
 #nav-intro img {
-  max-width: 500px;
+  width: 500px;
 }
 /* line 72, ../sass/utnabierta.scss */
 #nav-intro h2 {
+  text-shadow: -3px 3px 1px black;
   font-family: 'Alfa Slab One', cursive;
 }
 
-/* line 79, ../sass/utnabierta.scss */
+/* line 80, ../sass/utnabierta.scss */
 #contacts .icon {
   color: #3273dc;
 }
-/* line 82, ../sass/utnabierta.scss */
+/* line 83, ../sass/utnabierta.scss */
 #contacts a {
   color: #3273dc;
 }
 
-/* line 87, ../sass/utnabierta.scss */
+/* line 88, ../sass/utnabierta.scss */
 #apertura img {
   margin: 0 auto;
   max-width: 160px;
   transform: rotate(15deg);
 }
-/* line 92, ../sass/utnabierta.scss */
+/* line 93, ../sass/utnabierta.scss */
 #apertura .iconos {
   display: inline-flex;
 }
 
-/* line 96, ../sass/utnabierta.scss */
+/* line 97, ../sass/utnabierta.scss */
 .disclaimer {
   font-size: 12px;
   color: #888888;
   line-height: normal;
 }
 
-/* line 101, ../sass/utnabierta.scss */
+/* line 102, ../sass/utnabierta.scss */
 .saludo {
   color: #c9c9c9;
 }
-/* line 103, ../sass/utnabierta.scss */
+/* line 104, ../sass/utnabierta.scss */
 .saludo .carita {
   font-size: 60px;
   font-weight: 300;
 }
 @media (min-width: 1000px) {
-  /* line 103, ../sass/utnabierta.scss */
+  /* line 104, ../sass/utnabierta.scss */
   .saludo .carita {
     font-size: 130px;
   }
 }
-/* line 110, ../sass/utnabierta.scss */
+/* line 111, ../sass/utnabierta.scss */
 .saludo h1 {
   color: #c9c9c9;
 }
 
-/* line 118, ../sass/utnabierta.scss */
+/* line 119, ../sass/utnabierta.scss */
 .admin .button {
   font-weight: 900;
 }
-/* line 122, ../sass/utnabierta.scss */
+/* line 123, ../sass/utnabierta.scss */
 .admin .dashboard-info .notification.is-light h1.title,
 .admin .dashboard-info .notification.is-light h2.subtitle {
   color: #A1A1A1;
 }
 
-/* line 129, ../sass/utnabierta.scss */
+/* line 130, ../sass/utnabierta.scss */
 #crear-fecha input {
   border: 0;
   box-shadow: none;
@@ -7870,7 +7871,7 @@ html {
   color: #00d1b2;
 }
 
-/* line 138, ../sass/utnabierta.scss */
+/* line 139, ../sass/utnabierta.scss */
 .color-primary {
   color: #00d1b2;
 }
