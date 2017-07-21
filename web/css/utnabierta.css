@@ -7797,71 +7797,72 @@ html {
 /* line 69, ../sass/utnabierta.scss */
 #nav-intro img {
   width: 500px;
+  margin: 0 auto;
 }
-/* line 72, ../sass/utnabierta.scss */
+/* line 73, ../sass/utnabierta.scss */
 #nav-intro h2 {
   text-shadow: -3px 3px 1px black;
   font-family: 'Alfa Slab One', cursive;
 }
 
-/* line 80, ../sass/utnabierta.scss */
+/* line 81, ../sass/utnabierta.scss */
 #contacts .icon {
   color: #3273dc;
 }
-/* line 83, ../sass/utnabierta.scss */
+/* line 84, ../sass/utnabierta.scss */
 #contacts a {
   color: #3273dc;
 }
 
-/* line 88, ../sass/utnabierta.scss */
+/* line 89, ../sass/utnabierta.scss */
 #apertura img {
   margin: 0 auto;
   max-width: 160px;
   transform: rotate(15deg);
 }
-/* line 93, ../sass/utnabierta.scss */
+/* line 94, ../sass/utnabierta.scss */
 #apertura .iconos {
   display: inline-flex;
 }
 
-/* line 97, ../sass/utnabierta.scss */
+/* line 98, ../sass/utnabierta.scss */
 .disclaimer {
   font-size: 12px;
   color: #888888;
   line-height: normal;
 }
 
-/* line 102, ../sass/utnabierta.scss */
+/* line 103, ../sass/utnabierta.scss */
 .saludo {
   color: #c9c9c9;
 }
-/* line 104, ../sass/utnabierta.scss */
+/* line 105, ../sass/utnabierta.scss */
 .saludo .carita {
   font-size: 60px;
   font-weight: 300;
 }
 @media (min-width: 1000px) {
-  /* line 104, ../sass/utnabierta.scss */
+  /* line 105, ../sass/utnabierta.scss */
   .saludo .carita {
     font-size: 130px;
   }
 }
-/* line 111, ../sass/utnabierta.scss */
+/* line 112, ../sass/utnabierta.scss */
 .saludo h1 {
   color: #c9c9c9;
 }
 
-/* line 119, ../sass/utnabierta.scss */
+/* line 120, ../sass/utnabierta.scss */
 .admin .button {
   font-weight: 900;
 }
-/* line 123, ../sass/utnabierta.scss */
+/* line 124, ../sass/utnabierta.scss */
 .admin .dashboard-info .notification.is-light h1.title,
 .admin .dashboard-info .notification.is-light h2.subtitle {
   color: #A1A1A1;
 }
 
-/* line 130, ../sass/utnabierta.scss */
+/* line 131, ../sass/utnabierta.scss */
 #crear-fecha input {
   border: 0;
   box-shadow: none;
@@ -7871,7 +7872,7 @@ html {
   color: #00d1b2;
 }
 
-/* line 139, ../sass/utnabierta.scss */
+/* line 140, ../sass/utnabierta.scss */
 .color-primary {
   color: #00d1b2;
 }
