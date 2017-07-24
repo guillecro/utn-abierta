@@ -60,6 +60,7 @@ class AppExtension extends \Twig_Extension
           'Wednesday'=>'Miercoles',
           'Thursday'=>'Jueves',
           'Friday'=>'Viernes',
+          'Saturday'=>'Sábado',
           'Sunday'=>'Domingo');
         foreach($translations as $key => $value){
             $fecha = str_replace($key,$value,$fecha);
