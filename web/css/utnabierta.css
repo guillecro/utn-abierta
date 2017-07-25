@@ -7876,3 +7876,9 @@ html {
 .color-primary {
   color: #00d1b2;
 }
+
+/* line 144, ../sass/utnabierta.scss */
+.slick-slide img {
+  border-left: 1px solid #FFF;
+  border-left: 1px solid #FFF;
+}

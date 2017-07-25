@@ -157,8 +157,22 @@ class PortalCtrl extends Controller
         $em->persist($institucion);
         $em->flush();
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject('¡Su reserva ha sido registrada!')
+            ->setFrom(array('ingreso@frsf.utn.edu.ar' => 'UTN Abierta'))
+            ->setTo(array($institucion->getDocenteEmail(),$institucion->getEmail()))
+            ->setBody(
+            $this->renderView(
+                'email/nuevaReserva.html.twig',
+                array('reserva' => $reserva, 'institucion' => $institucion )
+            ),
+            'text/html'
+        );
+
+        $this->get('mailer')->send($message);
+
         return $this->render('Utils/exito.html.twig', array(
-            'mensaje' => 'Se ha enviado un email a su correo electrónico',
+            'mensaje' => '¡Se ha enviado un email a su correo electrónico confirmando la reserva! Por favor, compruebe su casilla de mensajes, si no encuentra el email, busque en su carpeta de correo no deseado.',
             'callback' => $this->generateUrl('showIndex')
         ));
     }

@@ -57,7 +57,7 @@ $em = $this->getDoctrine()->getManager();
     public function showFechasAction()
     {
         $repo = $this->getDoctrine()->getRepository('AppBundle:Fecha');
-        $fechas = $repo->findAll();
+        $fechas = $repo->findBy([], ['fecha' => 'ASC']);;
         return $this->render('AdminCtrl/admin/gestionar/showFechas.html.twig', [
             'fechas' => $fechas,
         ]);
