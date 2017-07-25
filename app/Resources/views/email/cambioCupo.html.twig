@@ -1,0 +1,12 @@
+{% extends ':email:masterEmail.html.twig' %}
+
+{% block body %}
+<tr>
+  <td style="font-family:sans-serif;font-size:14px;vertical-align:top;">
+    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Estimad@,</p>
+    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Hemos cambiado para la institución {{reserva.institucion.nombre}} el cupo de su reserva a {{reserva.cupo}} alumnos.</p>
+    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Cualquier consulta, puede comunicarse con el departamento de ingreso llamando al 4601579 int. 5100/5110 o mandando un email a <a href="mailto:ingreso@frsf.utn.edu.ar">ingreso@frsf.utn.edu.ar</a> </p>
+    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">¡Los esperamos!</p>
+  </td>
+</tr>
+{% endblock %}

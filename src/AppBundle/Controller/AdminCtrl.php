@@ -388,7 +388,7 @@ $repo = $this->getDoctrine()->getRepository('AppBundle:Institucion');
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('AppBundle:Reserva');
         $reserva = $repo->findOneById($reservaID);
-
+        $metafecha = $reserva->getFecha()->getMetafecha();
         $reserva->setDeletedAt(new \DateTime());
         $fecha = $reserva->getFecha();
         $fecha->setCuposRestantes( $fecha->getCuposRestantes() + $reserva->getCupo() );
@@ -397,9 +397,23 @@ $repo = $this->getDoctrine()->getRepository('AppBundle:Institucion');
 
         $em->flush();
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Visita cancelada')
+            ->setFrom(array('ingreso@frsf.utn.edu.ar' => 'UTN Abierta'))
+            ->setTo($reserva->getInstitucion()->getEmail())
+            ->setBody(
+            $this->renderView(
+                'email/cancelarReserva.html.twig',
+                array('reserva' => $reserva, 'metafecha' => $metafecha )
+            ),
+            'text/html'
+        );
+
+        $this->get('mailer')->send($message);
+
         $this->addFlash(
             'success',
-            'La reserva ha sido cancelada'
+            'La reserva ha sido cancelada y se envio un mail a la institución notificando'
         );
         return $this->redirectToRoute('showReservas');
     }
@@ -434,9 +448,23 @@ $repo = $this->getDoctrine()->getRepository('AppBundle:Institucion');
 
         $em->flush();
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Notificación de cambio de cupo de alumnos')
+            ->setFrom(array('ingreso@frsf.utn.edu.ar' => 'UTN Abierta'))
+            ->setTo($reserva->getInstitucion()->getEmail())
+            ->setBody(
+            $this->renderView(
+                'email/cambioCupo.html.twig',
+                array('reserva' => $reserva )
+            ),
+            'text/html'
+        );
+
+        $this->get('mailer')->send($message);
+
         $this->addFlash(
             'success',
-            'Se cambio el cupo de la reserva'
+            'Se cambio el cupo de la reserva y se envio un mail a la institución notificando'
         );
         return $this->redirectToRoute('showReservaInstitucion', array('reservaID' => $reservaID));
     }
@@ -476,9 +504,59 @@ $repo = $this->getDoctrine()->getRepository('AppBundle:Institucion');
 
         $em->flush();
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Notificación de cambio de fecha')
+            ->setFrom(array('ingreso@frsf.utn.edu.ar' => 'UTN Abierta'))
+            ->setTo($reserva->getInstitucion()->getEmail())
+            ->setBody(
+            $this->renderView(
+                'email/cambioFecha.html.twig',
+                array('reserva' => $reserva )
+            ),
+            'text/html'
+        );
+
+        $this->get('mailer')->send($message);
+
         $this->addFlash(
             'success',
-            'Se cambió la fecha de la reserva'
+            'Se cambió la fecha de la reserva y se envio un mail a la institución notificando'
+        );
+        return $this->redirectToRoute('showReservaInstitucion', array('reservaID' => $reservaID));
+    }
+
+    /**
+     * @Route("/reserva/{reservaID}/recordar", name="runRecordatorioFecha", requirements={"reservaID": "\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Method("POST")
+     */
+    public function runRecordatorioFechaAction(Request $request, $reservaID = 0)
+    {
+
+        // Lets get the request
+        $post = $request->request;
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AppBundle:Reserva');
+        $reserva = $repo->findOneById($reservaID);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Recordatorio de visita a la UTN Santa Fe')
+            ->setFrom(array('ingreso@frsf.utn.edu.ar' => 'UTN Abierta'))
+            ->setTo($reserva->getInstitucion()->getEmail())
+            ->setBody(
+            $this->renderView(
+                'email/recordatorioReserva.html.twig',
+                array('reserva' => $reserva )
+            ),
+            'text/html'
+        );
+
+        $this->get('mailer')->send($message);
+        // Lets show a success!
+        $this->addFlash(
+            'success',
+            'Se ha enviado un mail a ' . $reserva->getInstitucion()->getEmail() . ' con un recordatorio de los datos de la visita'
         );
         return $this->redirectToRoute('showReservaInstitucion', array('reservaID' => $reservaID));
     }

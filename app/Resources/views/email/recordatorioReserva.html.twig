@@ -1,0 +1,13 @@
+{% extends ':email:masterEmail.html.twig' %}
+
+{% block body %}
+<tr>
+  <td style="font-family:sans-serif;font-size:14px;vertical-align:top;">
+    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Estimad@,</p>
+    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">Enviamos el siguiente correo para recordarle la información de su reserva para la visita a la UTN SANTA FE.</p>
+      <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;"><b>Institución:</b> {{reserva.institucion.nombre}}<br><b>Día:</b> {{reserva.fecha.metafecha|date('l, d \\d\\e F Y')|toEs}}<br><b>Hora:</b> {{reserva.fecha.hora|date('H:i')}}<br><b>Alumnos:</b> {{reserva.cupo}}<br><b>Docente referente:</b> {{reserva.institucion.docenteNombre}} </p>
+    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">¡Esperamos con entusiasmo su visita! Cualquier consulta, puede comunicarse con el departamento de ingreso llamando al 4601579 int. 5100/5110 o mandando un email a <a href="mailto:ingreso@frsf.utn.edu.ar">ingreso@frsf.utn.edu.ar</a> </p>
+    <p style="font-family:sans-serif;font-size:14px;font-weight:normal;margin:0;Margin-bottom:15px;">¡Los esperamos!</p>
+  </td>
+</tr>
+{% endblock %}

@@ -19,6 +19,9 @@
       <h1 class="title is-1 is-marker">Reserva</h1>
       <a href="javascript:showModalFecha()" class="button is-primary"><span class="icon"><i class="fa fa-pencil"></i></span>&nbsp;&nbsp;&nbsp;Cambiar fecha</a>
       <a href="javascript:showModalCupo()" class="button is-primary"><span class="icon"><i class="fa fa-pencil"></i></span>&nbsp;&nbsp;&nbsp;Cambiar cupo</a>
+      <form action="{{path('runRecordatorioFecha',{'reservaID' : reserva.id})}}" method="post" style="display:inline-flex">
+          <button type="submit" class="button is-info"><span class="icon"><i class="fa fa-envelope"></i></span>&nbsp;&nbsp;&nbsp;Enviar recordatorio</button>
+      </form>
       <a href="javascript:showModalCancelar()" class="button is-danger"><span class="icon"><i class="fa fa-times"></i></span>&nbsp;&nbsp;&nbsp;Cancelar reserva</a>
        <hr>
        <h1 class="title is-3 is-oswald">Reservado por:<br><a href="{{path('showInstitucion', {'institucionID' : reserva.institucion.id})}}">{{reserva.institucion.nombre}}</a></h1>
