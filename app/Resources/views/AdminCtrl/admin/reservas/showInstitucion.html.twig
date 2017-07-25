@@ -17,7 +17,7 @@
    <div class="container">
       {% if institucion.reserva.deletedAt is not null %}<span class="tag is-danger is-medium"> <span class="icon is-small"><i class="fa fa-times"></i></span> Canceló reserva</span><br>{% endif %}
        <h1 class="title is-1 is-oswald">{{institucion.nombre}}</h1>
-             <a href="{{path('printReservas')}}" class="button is-primary"><span class="icon"><i class="fa fa-pencil"></i></span>&nbsp;&nbsp;&nbsp;Editar</a>
+             <a href="javascript:showModalCancelar()" class="button is-danger"><span class="icon"><i class="fa fa-times"></i></span>&nbsp;&nbsp;&nbsp;Eliminar</a>
              {% if institucion.reserva.deletedAt is null %}
              <a href="{{path('showReservaInstitucion', {'reservaID':institucion.reserva.id})}}" class="button is-primary"><span class="icon"><i class="fa fa-tag"></i></span>&nbsp;&nbsp;&nbsp;Ver Reserva</a>
              {% else %}
@@ -87,6 +87,31 @@
          </table>
    </div>
 </section>
+<div id="eliminarInstitucion" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="box">
+         <h1 class="title is-3 is-oswald">¿Eliminar institución?</h1>
+         <p>Esta acción no la podes revertir!</p>
+         <p class="disclaimer">(Eliminamos el registro de la institución, y si tiene reserva, tambien la eliminamos!)</p>
+         <br>
+         <form action="{{path('runEliminarInstitucion', {'institucionID':institucion.id})}}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token( 'formEliminarInstitucion' ) }}">
+             <button type="submit" class="button is-danger">Si si, eliminarla</button>
+         </form>
+    </div>
+  </div>
+  <button class="modal-close is-large"></button>
+</div>
 {% endblock %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+
+<script>
+
+    function showModalCancelar() {
+               $('#eliminarInstitucion').addClass('is-active');
+            }
+
+</script>
+{% endblock %}

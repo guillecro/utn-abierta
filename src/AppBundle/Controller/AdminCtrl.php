@@ -309,8 +309,14 @@ $em = $this->getDoctrine()->getManager();
      */
     public function showInstitucionesAction()
     {
-$repo = $this->getDoctrine()->getRepository('AppBundle:Institucion');
-        $instituciones = $repo->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT i
+         FROM AppBundle:Institucion i
+         WHERE i.deletedAt IS null
+		 '
+        );
+        $instituciones = $query->getResult();
         return $this->render('AdminCtrl/admin/reservas/showInstituciones.html.twig', [
             'instituciones' => $instituciones
         ]);
@@ -330,6 +336,48 @@ $repo = $this->getDoctrine()->getRepository('AppBundle:Institucion');
             'institucion' => $institucion
         ]);
     }
+
+    /**
+     * @Route("/reserva/institucion/{institucionID}/eliminar", name="runEliminarInstitucion", requirements={"institucionID": "\d+"})
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Method("POST")
+     */
+    public function runEliminarInstitucionAction(Request $request, $institucionID = 0)
+    {
+
+        // Lets get the request
+        $post = $request->request;
+
+        $tokenValue = $post->get('csrf_token');
+        if (!$this->isCsrfTokenValid('formEliminarInstitucion', $tokenValue)) {
+            $this->addFlash(
+                'error',
+                'Token CSRF invalido'
+            );
+            return $this->redirectToRoute('showReservaInstitucion', array('reservaID' => $reservaID));
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AppBundle:Institucion');
+        $institucion = $repo->findOneById($institucionID);
+        $institucion->setDeletedAt(new \DateTime());
+        if( $institucion->getReserva()->getFecha() != null ){
+        $institucion->getReserva()->setDeletedAt(new \DateTime());
+        $fecha = $institucion->getReserva()->getFecha();
+        $fecha->setCuposRestantes( $fecha->getCuposRestantes() + $institucion->getReserva()->getCupo() );
+        $fecha->removeReserva($institucion->getReserva());
+        $institucion->getReserva()->setFecha(null);
+        }
+
+        $em->flush();
+
+        $this->addFlash(
+            'success',
+            'Institución eliminada'
+        );
+        return $this->redirectToRoute('showInstituciones');
+    }
+
 
     /**
      * @Route("/reserva/{reservaID}", name="showReservaInstitucion", requirements={"reservaID": "\d+"})
@@ -364,6 +412,9 @@ $repo = $this->getDoctrine()->getRepository('AppBundle:Institucion');
             'fechas' => $fechas
         ]);
     }
+
+
+
 
     /**
      * @Route("/reserva/{reservaID}/cancelar", name="runCancelarReserva", requirements={"reservaID": "\d+"})

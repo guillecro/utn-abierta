@@ -112,6 +112,13 @@ class Institucion
      */
     private $updatedAt;
 
+    /**
+     * updated Time/Date
+     * @var \DateTime
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     // =====================================
     // SETTERS AND GETTERS FOR createdAt & updatedAt DATES
 
@@ -523,5 +530,29 @@ class Institucion
     public function getReserva()
     {
         return $this->reserva;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     *
+     * @return Institucion
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }
