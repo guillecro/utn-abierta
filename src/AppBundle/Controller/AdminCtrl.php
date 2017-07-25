@@ -332,6 +332,13 @@ $em = $this->getDoctrine()->getManager();
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('AppBundle:Institucion');
         $institucion = $repo->findOneById($institucionID);
+        if( $institucion->getDeletedAt() != null ){
+             $this->addFlash(
+            'error',
+            'Esta intentando acceder a una institución eliminada >:('
+        );
+        return $this->redirectToRoute('showInstituciones');
+        }
         return $this->render('AdminCtrl/admin/reservas/showInstitucion.html.twig', [
             'institucion' => $institucion
         ]);
